@@ -2,9 +2,8 @@ var express = require('express');
 var fs = require('fs');
 
 var app = express.createServer(express.logger());
-// syncronically read index file to cache when creating server
-// no need to use buffer as the content can be cached in this case
-var cachedIndex = fs.readFileSync('index.html', {"encoding": "utf8"});
+var bufferIndex = fs.readFileSync('index.html');
+var cachedIndex = bufferIndex.toString();
 
 app.get('/', function(request, response) {
   response.send(cachedIndex);
